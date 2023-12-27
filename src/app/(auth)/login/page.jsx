@@ -24,8 +24,14 @@ const Login = () => {
         <br />
         <br />
         <form action="">
-          <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input type="text" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input type="password" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+
+          <div className='authorize_remember'>
+            <label htmlFor="rem">
+            <input id='rem' type="checkbox" /> Remember me
+            </label>
+          </div>
 
           <button className="btn btnPrimary w-100" onClick={handleLogin}>Login</button>
         </form>

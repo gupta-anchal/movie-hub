@@ -1,4 +1,4 @@
-input{
+input[type="text"], input[type="password"]{
     font-size: 14px !important;
     background-color: $inputColor;
     width: 100%;
@@ -13,5 +13,8 @@ input{
         border-color: unset;
         box-shadow: unset;
         outline: unset;
+    }
+    &::placeholder{
+        color: #fff;
     }
 }
