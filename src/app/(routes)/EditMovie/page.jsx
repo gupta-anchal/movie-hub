@@ -7,7 +7,7 @@ import { FileUploader } from "react-drag-drop-files";
 import downloadBtn from "../../../assets/images/dowload.svg";
 import Image from "next/image";
 
-const AddMovieForm = () => {
+const EditMovieForm = () => {
   const [title, setTitle] = useState("");
   const [publishingYear, setPublishingYear] = useState("");
   const fileTypes = ["JPEG", "PNG", "GIF"];
@@ -43,7 +43,7 @@ const AddMovieForm = () => {
   return (
     <div className="new-movie-page">
       <div className="container">
-        <div className="heading-two">Create a new movie</div>
+        <div className="heading-two">Edit</div>
         <div className="form-section">
           <div className="row">
             <div className="col-lg-6">
@@ -87,13 +87,13 @@ const AddMovieForm = () => {
                     className="btn btnSecondary w-100"
                     onClick={handleAddMovie}
                   >
-                    Add
+                    Cancel
                   </button>
                   <button
                     className="btn btnPrimary w-100"
                     onClick={handleAddMovie}
                   >
-                    Submit
+                    Update
                   </button>
                 </div>
               </div>
@@ -105,4 +105,4 @@ const AddMovieForm = () => {
   );
 };
 
-export default AddMovieForm;
+export default EditMovieForm;

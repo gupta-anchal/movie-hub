@@ -6,7 +6,7 @@ input[type="text"], input[type="password"]{
     border-radius: $themeRadius;
     height: 45px;
     padding: 15px 20px;
-    margin-bottom: 20px !important;
+    margin-bottom: 24px !important;
     display: block;
     color: white;
     &:focus{
@@ -16,5 +16,6 @@ input[type="text"], input[type="password"]{
     }
     &::placeholder{
         color: #fff;
+        opacity: .5;
     }
 }
