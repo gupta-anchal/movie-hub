@@ -1,9 +1,9 @@
 @import "./shared/variables";
 
-.main-layout {
+body{
     min-height: 100vh;
+    background-image: url('/bottom-waves.png');
     background-color: $bg-color;
-    background-image: url('../assets//images/wave.svg');
     background-repeat: no-repeat;
     background-position: bottom;
     background-size: contain;
