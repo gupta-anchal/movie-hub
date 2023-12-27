@@ -1,8 +1,11 @@
-@import "./_utils";
-@import './_fonts';
+$primaryColor: #2bd17e;
+$errorColor: #eb5757;
+$bgColor: #093545;
+$inputColor: #224957;
+$cardColor: #092c39;
 
-$primary-color: #2bd17e;
-$error-color: #eb5757;
-$bg-color: #093545;
-$input-color: #224957;
-$card-color: #092c39;
+
+
+
+// Borders and fonts
+$themeRadius: 12px;

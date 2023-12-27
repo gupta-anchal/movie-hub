@@ -17,14 +17,21 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className='container'>
+
+      <div className='authorize'>
+        <h1 className='text-center m-0'>Sign in</h1>
+        <br />
+        <br />
+        <form action="">
+          <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+
+          <button className="btn btnPrimary w-100" onClick={handleLogin}>Login</button>
+        </form>
+      </div>
       
-      <label>Email:</label>
-      <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <label>Password:</label>
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <button onClick={handleLogin}>Login</button>
+      
     </div>
   );
 };
