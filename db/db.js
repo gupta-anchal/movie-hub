@@ -7,5 +7,6 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 export async function connectDatabase() {
   await client.connect();
   console.log("client", client);
-  return client.db();
+  return { client, db: client.db() }; // Resolve the promise with the client and db
 }
+    
