@@ -4,5 +4,6 @@
     background-color: $primaryColor !important;
     border-radius: $themeRadius !important;
     height: 45px;
-    font-weight: 700;
+    font-weight: 700 !important;
+    line-height: 30px !important;
 }
