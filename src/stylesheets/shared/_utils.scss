@@ -4,3 +4,35 @@
   box-sizing: border-box;
 }
 
+.ml-10{
+  margin-left: 10px;
+}
+
+.text-dec-none{
+  text-decoration: none;
+}
+.no-movies{
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  h1{
+    font-size: 48px;
+    margin-bottom: 10px;
+  }
+}
+.page-heading{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 50px 0;
+  h1{
+    font-size: 48px;
+    margin: 0;
+    img{
+      width: 32px;
+      margin-left: 10px;
+    }
+  }
+}
