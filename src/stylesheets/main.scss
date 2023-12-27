@@ -1,0 +1,10 @@
+@import "./shared/variables";
+
+.main-layout {
+    min-height: 100vh;
+    background-color: $bg-color;
+    background-image: url('../assets//images/wave.svg');
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: contain;
+}
