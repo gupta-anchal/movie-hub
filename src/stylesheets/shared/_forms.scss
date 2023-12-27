@@ -1,0 +1,17 @@
+input{
+    font-size: 14px !important;
+    background-color: $inputColor;
+    width: 100%;
+    border: unset;
+    border-radius: $themeRadius;
+    height: 45px;
+    padding: 15px 20px;
+    margin-bottom: 20px !important;
+    display: block;
+    color: white;
+    &:focus{
+        border-color: unset;
+        box-shadow: unset;
+        outline: unset;
+    }
+}

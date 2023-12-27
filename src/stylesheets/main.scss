@@ -1,0 +1,12 @@
+@import "./shared/index";
+@import "./pages/auth";
+
+.home{
+    min-height: 100vh;
+    background-image: url('/bottom-waves.png');
+    background-color: $bgColor;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: contain;
+    color: white;
+}
