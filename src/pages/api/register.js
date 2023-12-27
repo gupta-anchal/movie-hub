@@ -1,27 +1,50 @@
-// pages/api/register.js
+import NextAuth from 'next-auth';
+import { Providers } from 'next-auth';
 import bcrypt from 'bcrypt';
+import { connectDatabase } from '../../../db/db'; // Update with the actual path
 
-export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).end();
-  }
+export default NextAuth({
+  providers: [
+    Providers.Credentials({
+      async authorize(credentials) {
+        const { email, password } = credentials;
 
-  const { email, password } = req.body;
+        // Replace with your actual user registration logic (e.g., connecting to a database)
+        const db = await connectDatabase();
 
-  // Check if email is already registered (you may want to connect this to a database)
-  const isEmailTaken = false; // Replace with your validation logic
+        // Check if the email is taken
+        const existingUser = await db.collection('users').findOne({ email });
 
-  if (isEmailTaken) {
-    return res.status(400).json({ message: 'Email is already taken' });
-  }
+        if (existingUser) {
+          return Promise.resolve(null);
+        }
 
-  // Hash the password (you should use a more secure method in a real-world scenario)
-  const hashedPassword = await bcrypt.hash(password, 10);
+        // Hash the password (you should use a more secure method in a real-world scenario)
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-  // Save the user details to the database (you should use a database in a real-world scenario)
+        // Save the user details to the database
+        const newUser = {
+          email,
+          password: hashedPassword,
+        };
 
-  // Generate a simple token (you should use a proper authentication library)
-  const token = 'your_generated_token';
+        await db.collection('users').insertOne(newUser);
 
-  return res.status(200).json({ token });
-}
+        // Return the user object
+        return Promise.resolve({ email });
+      },
+      async jwt(token, user) {
+        // If a user is found, add it to the token
+        if (user) {
+          token.id = user.email; // You can customize the token payload
+        }
+        return token;
+      },
+      async session(session, token) {
+        // Add user data to the session
+        session.user = token;
+        return session;
+      },
+    }),
+  ],
+});

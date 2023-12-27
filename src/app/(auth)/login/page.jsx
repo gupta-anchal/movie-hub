@@ -33,7 +33,7 @@ const Login = () => {
             </label>
           </div>
 
-          <button className="btn btnPrimary w-100" onClick={handleLogin}>Login</button>
+          <button className="btn btnPrimary w-100" >Login</button>
         </form>
       </div>
       
