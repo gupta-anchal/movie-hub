@@ -1,7 +1,6 @@
 // add.js
+"use client";
 import { connectDatabase } from '../../../../db/db';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -25,21 +24,17 @@ export default async function handler(req, res) {
       publishingYear: parseInt(publishingYear),
       // Add other fields as needed
     });
-    console.log("result", result, result.ops);
 
     // Close the MongoDB client
     await client.close();
 
     if (result.acknowledged) {
-      res.status(200).json({ message: 'Movie added successfully', movie: result.ops[0] });
-      toast.success('Movie added successfully');
+      res.status(200).json({ message: 'Movie added successfully' });
     } else {
       res.status(500).json({ message: 'Error adding movie: No data returned from the database' });
-      toast.error('Error adding movie');
     }
   } catch (error) {
     console.error('Error connecting to the database:', error);
     res.status(500).json({ message: 'Internal Server Error' });
-    toast.error('Internal Server Error');
   }
 }
