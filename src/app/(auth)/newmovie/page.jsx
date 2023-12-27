@@ -11,15 +11,36 @@ const NewMovie = () => {
   };
 
   return (
-    <div>
-      <FileUploader
-        multiple={true}
-        handleChange={handleChange}
-        name="file"
-        types={fileTypes}
-        className="hello"
-      />
-      <p>{file ? `File name: ${file[0].name}` : "no files uploaded yet"}</p>
+    <div className="new-movie-page">
+      <div className="container">
+        <div className="heading-two">Create a new movie</div>
+        <div className="form-section">
+          <div className="row">
+            <div className="col-lg-6">
+              <div>
+                <FileUploader
+                  multiple={true}
+                  handleChange={handleChange}
+                  name="file"
+                  types={fileTypes}
+                  className="file-uploader"
+                />
+                <p>
+                  {file
+                    ? `File name: ${file[0].name}`
+                    : "no files uploaded yet"}
+                </p>
+              </div>
+            </div>
+            <div className="col-lg-6">
+              <div>
+                <input type="text" name="" placeholder="Title" id="" />
+                <input type="text" placeholder="Publishing year" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
