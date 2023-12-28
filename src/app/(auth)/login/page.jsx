@@ -1,8 +1,7 @@
 "use client";
 import { useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { showSuccessToast, showErrorToast } from '../../../../toastConfig';
 import { useRouter } from "next/navigation";
 
 const Login = () => {
@@ -15,32 +14,32 @@ const Login = () => {
 
     // Check if email or password is empty
     if (!email.trim() || !password.trim()) {
-      toast.error('Email and password are required fields');
+      showErrorToast('Email and password are required fields');
       return;
     }
 
     // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      toast.error('Invalid email format');
+      showErrorToast('Invalid email format');
       return;
     }
 
     // Password validation
     if (password.length < 6) {
-      toast.error('Password must be at least 6 characters long');
+      showErrorToast('Password must be at least 6 characters long');
       return;
     }
 
     try {
       const response = await axios.post("/api/login", { email, password });
-      toast.success('Logged in successfully');
+      showSuccessToast('Logged in successfully')
       router.push("/movielist", { scroll: false });
       console.log(response.data);
       // Handle the token, redirect, or update state as needed
     } catch (error) {
       console.error("Login failed:", error.response?.data || error.message);
-      toast.error('Login failed. Please check your credentials.');
+      showErrorToast('Login failed. Please check your credentials.');
     }
   };
 

@@ -1,13 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { FileUploader } from "react-drag-drop-files";
 import downloadBtn from "../../../assets/images/dowload.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ColorRing } from "react-loader-spinner";
+import { showSuccessToast, showErrorToast } from 'path/to/toastUtils';
 
 const EditMovieForm = () => {
   const [title, setTitle] = useState("");
@@ -56,16 +55,7 @@ const EditMovieForm = () => {
     try {
       // Validate the publishingYear
       if (!isValidYear(publishingYear)) {
-        toast.error("Invalid year format. Please enter a 4-digit year.", {
-          position: "bottom-center",
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
+        showErrorToast("Invalid year format. Please enter a 4-digit year.");
         setIsLoading(false);
         return;
       }
@@ -74,30 +64,12 @@ const EditMovieForm = () => {
         publishingYear,
       });
       if (response.status === 200) {
-        toast.success("Movie updated successfully", {
-          position: "bottom-center",
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
+        showSuccessToast("Movie updated successfully");
         setIsLoading(false);
         router.push("/movielist", { scroll: false });
         // You can add additional logic, such as resetting form fields or updating state
       } else {
-        toast.error("Failed to update  movie", {
-          position: "bottom-center",
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
+        showErrorToast("Failed to update  movie");
         setIsLoading(false);
       }
       console.log("Movie added successfully:", response.data);
@@ -105,16 +77,7 @@ const EditMovieForm = () => {
       // You can add additional logic, such as resetting form fields or updating state
     } catch (error) {
       console.error("Error updating movie:", error.response?.data?.message);
-      toast.error(`Error updating movie: ${error.response?.data?.message}`, {
-        position: "bottom-center",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      showErrorToast(`Error updating movie: ${error.response?.data?.message}`);
       setIsLoading(false);
     }
   };

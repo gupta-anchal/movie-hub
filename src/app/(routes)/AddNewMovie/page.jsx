@@ -1,13 +1,12 @@
 "use client";
 import { useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { FileUploader } from "react-drag-drop-files";
 import downloadBtn from "../../../assets/images/dowload.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ColorRing } from "react-loader-spinner";
+import { showSuccessToast, showErrorToast } from '../../../../toastConfig';
 
 const AddMovieForm = () => {
   const [title, setTitle] = useState("");
@@ -27,16 +26,7 @@ const AddMovieForm = () => {
     setIsLoading(true);
     try {
       if (!isValidYear(publishingYear)) {
-        toast.error("Invalid year format. Please enter a 4-digit year.", {
-          position: "bottom-center",
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
+        showErrorToast("Invalid year format. Please enter a 4-digit year.");
         setIsLoading(false);
         return;
       }
@@ -45,31 +35,13 @@ const AddMovieForm = () => {
         publishingYear,
       });
       if (response.status === 200) {
-        toast.success("Movie added successfully", {
-          position: "bottom-center",
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
+        showSuccessToast("Movie added successfully");
         setIsLoading(false);
         setTitle("");
         setPublishingYear('');
         // You can add additional logic, such as resetting form fields or updating state
       } else {
-        toast.error("Failed to add movie", {
-          position: "bottom-center",
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
+        showErrorToast("Failed to add movie");
         setIsLoading(false);
       }
       console.log("Movie added successfully:", response.data);
@@ -80,16 +52,7 @@ const AddMovieForm = () => {
         "Error adding movie:",
         error.response?.data || error.message
       );
-      toast.error("Error adding movie", {
-        position: "bottom-center",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      showErrorToast("Error adding movie");
     }
   };
 
