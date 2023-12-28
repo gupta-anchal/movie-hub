@@ -9,7 +9,6 @@ export default NextAuth({
       async authorize(credentials) {
         const { email, password } = credentials;
 
-        // Replace with your actual user registration logic (e.g., connecting to a database)
         const db = await connectDatabase();
 
         // Check if the email is taken

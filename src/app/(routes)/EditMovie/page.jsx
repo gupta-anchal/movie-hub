@@ -36,7 +36,6 @@ const EditMovieForm = () => {
             error.response?.data || error.message
           );
           setIsLoading(false);
-          // Handle error, e.g., redirect to the movie listing page
         }
       };
 
@@ -67,14 +66,12 @@ const EditMovieForm = () => {
         showSuccessToast("Movie updated successfully");
         setIsLoading(false);
         router.push("/movielist", { scroll: false });
-        // You can add additional logic, such as resetting form fields or updating state
       } else {
         showErrorToast("Failed to update  movie");
         setIsLoading(false);
       }
       console.log("Movie added successfully:", response.data);
       setIsLoading(false);
-      // You can add additional logic, such as resetting form fields or updating state
     } catch (error) {
       console.error("Error updating movie:", error.response?.data?.message);
       showErrorToast(`Error updating movie: ${error.response?.data?.message}`);

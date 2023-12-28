@@ -36,7 +36,6 @@ const Login = () => {
       showSuccessToast('Logged in successfully')
       router.push("/movielist", { scroll: false });
       console.log(response.data);
-      // Handle the token, redirect, or update state as needed
     } catch (error) {
       console.error("Login failed:", error.response?.data || error.message);
       showErrorToast('Login failed. Please check your credentials.');

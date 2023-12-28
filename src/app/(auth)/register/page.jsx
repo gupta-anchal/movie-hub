@@ -11,7 +11,6 @@ const Register = () => {
     try {
       const response = await axios.post('/api/register', { email, password });
       console.log(response.data);
-      // Handle the token, redirect, or update state as needed
     } catch (error) {
       console.error('Registration failed:', error.response?.data || error.message);
     }
