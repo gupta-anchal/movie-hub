@@ -49,6 +49,19 @@
     display: none;
   }
 }
+@media screen and (min-width: 992px){
+  .d-none-desk{
+    display: none;
+  }
+}
+@media screen and (max-width: $md){
+  .f-direction_R_md{
+    flex-direction: column-reverse;
+  }
+  .d-none-md{
+    display: none !important;
+  }
+}
 
 .loader-box {
   height: 100vh;

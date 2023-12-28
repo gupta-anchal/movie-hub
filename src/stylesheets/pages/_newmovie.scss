@@ -13,10 +13,6 @@
   line-height: 56px; /* 116.667% */
 }
 .new-movie-page {
-  padding-top: 120px;
-  .form-section {
-    padding-top: 120px;
-  }
   .input-area {
     max-width: 362px;
     margin-bottom: 64px;
@@ -25,10 +21,17 @@
     }
     .year-input {
       width: 241px;
+      @media screen and (max-width: $sm){
+        width: 100%;
+      }
     }
     .input-area-btns {
       display: flex;
       gap: 16px;
+    }
+    @media screen and (max-width: $sm){
+      margin-bottom: 10px !important;
+      max-width: 100% !important;
     }
   }
 }
@@ -41,6 +44,13 @@
       width: 473px;
       height: 504px;
       opacity: 0;
+      @media screen and (max-width: $sm){
+        width: 100% !important;
+        height: 100vw;
+        input{
+          width: 100%;
+        }
+      }
     }
     .file-uploader-layer {
       position: absolute;
@@ -61,6 +71,12 @@
       align-items: center;
       flex-direction: column;
       z-index: -1;
+    }
+    @media screen and (max-width: $sm){
+      width: 100%;
+      height: 100vw;
+      margin-bottom: 20px;
+      overflow: hidden;
     }
   }
 }

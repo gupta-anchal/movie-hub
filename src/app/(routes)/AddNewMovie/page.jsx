@@ -77,9 +77,12 @@ const AddMovieForm = () => {
   return (
     <div className="new-movie-page">
       <div className="container">
-        <div className="heading-two">Create a new movie</div>
+        <div class="page-heading">
+          <h1>Create a new movie</h1>
+        </div>
+
         <div className="form-section">
-          <div className="row">
+          <div className="row f-direction_R_md">
             <div className="col-lg-6">
               <div className="file-uploader">
                 <div className="file-uploader-area">
@@ -99,6 +102,28 @@ const AddMovieForm = () => {
                   </div>
                 </div>
               </div>
+              <div className="input-area-btns d-none-desk">
+                  <div className="row">
+                    <div className="col-6">
+                      <button
+                      className="btn btnSecondary w-100"
+                      onClick={handleAddMovie}
+                      >
+                        Add
+                      </button>
+                    </div>
+                    <div className="col-6">
+                      <button
+                        className="btn btnPrimary w-100"
+                        onClick={handleAddMovie}
+                        >
+                        Submit
+                      </button>
+                    </div>
+                  </div>
+                  
+                  
+                </div>
             </div>
             <div className="col-lg-6">
               <div className="input-area">
@@ -116,7 +141,7 @@ const AddMovieForm = () => {
                   placeholder="Publishing year"
                   onChange={(e) => setPublishingYear(e.target.value)}
                 />
-                <div className="input-area-btns">
+                <div className="input-area-btns d-none-md">
                   <button
                     className="btn btnSecondary w-100"
                     onClick={handleCancel}

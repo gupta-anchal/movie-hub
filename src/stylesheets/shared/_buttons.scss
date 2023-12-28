@@ -10,6 +10,8 @@
   line-height: 0px !important;
   @media screen and (max-width: $sm){
     height: 54px;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
   }
 }
 
@@ -24,5 +26,7 @@
   border: 1px solid #fff !important;
   @media screen and (max-width: $sm){
     height: 54px;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
   }
 }
