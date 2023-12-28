@@ -7,6 +7,7 @@ import { FileUploader } from "react-drag-drop-files";
 import downloadBtn from "../../../assets/images/dowload.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { ColorRing } from "react-loader-spinner";
 
 const AddMovieForm = () => {
   const [title, setTitle] = useState("");
@@ -14,6 +15,7 @@ const AddMovieForm = () => {
   const fileTypes = ["JPEG", "PNG", "GIF"];
   const [file, setFile] = useState(null);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (file) => {
     setFile(file);
@@ -22,6 +24,7 @@ const AddMovieForm = () => {
   const isValidYear = (year) => /^\d{4}$/.test(year);
 
   const handleAddMovie = async () => {
+    setIsLoading(true);
     try {
       if (!isValidYear(publishingYear)) {
         toast.error("Invalid year format. Please enter a 4-digit year.", {
@@ -34,6 +37,7 @@ const AddMovieForm = () => {
           progress: undefined,
           theme: "colored",
         });
+        setIsLoading(false);
         return;
       }
       const response = await axios.post("/api/movies/add", {
@@ -41,7 +45,7 @@ const AddMovieForm = () => {
         publishingYear,
       });
       if (response.status === 200) {
-        toast.success('Movie added successfully', {
+        toast.success("Movie added successfully", {
           position: "bottom-center",
           autoClose: 5000,
           hideProgressBar: true,
@@ -51,11 +55,12 @@ const AddMovieForm = () => {
           progress: undefined,
           theme: "colored",
         });
-        setTitle('');
+        setIsLoading(false);
+        setTitle("");
         setPublishingYear(null);
         // You can add additional logic, such as resetting form fields or updating state
       } else {
-        toast.error('Failed to add movie', {
+        toast.error("Failed to add movie", {
           position: "bottom-center",
           autoClose: 5000,
           hideProgressBar: true,
@@ -64,16 +69,18 @@ const AddMovieForm = () => {
           draggable: true,
           progress: undefined,
           theme: "colored",
-          });
+        });
+        setIsLoading(false);
       }
       console.log("Movie added successfully:", response.data);
+      setIsLoading(false);
       // You can add additional logic, such as resetting form fields or updating state
     } catch (error) {
       console.error(
         "Error adding movie:",
         error.response?.data || error.message
       );
-      toast.error('Error adding movie', {
+      toast.error("Error adding movie", {
         position: "bottom-center",
         autoClose: 5000,
         hideProgressBar: true,
@@ -82,7 +89,7 @@ const AddMovieForm = () => {
         draggable: true,
         progress: undefined,
         theme: "colored",
-        });
+      });
     }
   };
 
@@ -92,6 +99,15 @@ const AddMovieForm = () => {
 
   return (
     <div className="new-movie-page">
+      <ColorRing
+        visible={true}
+        height="0"
+        width="0"
+        ariaLabel="color-ring-loading"
+        wrapperStyle={{}}
+        wrapperClass="color-ring-wrapper"
+        colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+      />
       <div className="container">
         <div class="page-heading">
           <h1>Create a new movie</h1>
@@ -119,27 +135,37 @@ const AddMovieForm = () => {
                 </div>
               </div>
               <div className="input-area-btns d-none-desk mb-5">
-                  <div className="row">
-                    <div className="col-6">
-                      <button
+                <div className="row">
+                  <div className="col-6">
+                    <button
                       className="btn btnSecondary w-100"
                       onClick={handleAddMovie}
-                      >
-                        Add
-                      </button>
-                    </div>
-                    <div className="col-6">
-                      <button
-                        className="btn btnPrimary w-100"
-                        onClick={handleAddMovie}
-                        >
-                        Submit
-                      </button>
-                    </div>
+                    >
+                      Cancel
+                    </button>
                   </div>
-                  
-                  
+                  <div className="col-6">
+                    <button
+                      className="btn btnPrimary w-100"
+                      onClick={handleAddMovie}
+                    >
+                      {isLoading ? (
+                      <ColorRing
+                        visible={true}
+                        height="30"
+                        width="35"
+                        ariaLabel="color-ring-loading"
+                        wrapperStyle={{}}
+                        wrapperClass="color-ring-wrapper"
+                        colors={["#fff", "#fff", "#fff", "#fff", "#fff"]}
+                      />
+                    ) : (
+                      "Submit"
+                    )}
+                    </button>
+                  </div>
                 </div>
+              </div>
             </div>
             <div className="col-lg-6">
               <div className="input-area">
@@ -168,7 +194,19 @@ const AddMovieForm = () => {
                     className="btn btnPrimary w-100"
                     onClick={handleAddMovie}
                   >
-                    Submit
+                    {isLoading ? (
+                      <ColorRing
+                        visible={true}
+                        height="30"
+                        width="35"
+                        ariaLabel="color-ring-loading"
+                        wrapperStyle={{}}
+                        wrapperClass="color-ring-wrapper"
+                        colors={["#fff", "#fff", "#fff", "#fff", "#fff"]}
+                      />
+                    ) : (
+                      "Submit"
+                    )}
                   </button>
                 </div>
               </div>

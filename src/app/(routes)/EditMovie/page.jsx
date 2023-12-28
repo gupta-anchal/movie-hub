@@ -7,6 +7,7 @@ import { FileUploader } from "react-drag-drop-files";
 import downloadBtn from "../../../assets/images/dowload.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { ColorRing } from "react-loader-spinner";
 
 const EditMovieForm = () => {
   const [title, setTitle] = useState("");
@@ -15,8 +16,11 @@ const EditMovieForm = () => {
   const fileTypes = ["JPEG", "PNG", "GIF"];
   const [file, setFile] = useState(null);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
 
   useEffect(() => {
+    setIsLoading(true);
     const movieUrl = new URLSearchParams(window.location.search).get("id");
     setMovieId(movieUrl);
     if (movieUrl) {
@@ -26,11 +30,13 @@ const EditMovieForm = () => {
           const { title, publishingYear } = response.data.movie;
           setTitle(title);
           setPublishingYear(publishingYear);
+          setIsLoading(false);
         } catch (error) {
           console.error(
             "Error fetching movie details:",
             error.response?.data || error.message
           );
+          setIsLoading(false);
           // Handle error, e.g., redirect to the movie listing page
         }
       };
@@ -46,6 +52,7 @@ const EditMovieForm = () => {
   const isValidYear = (year) => /^\d{4}$/.test(year);
 
   const handleEditMovie = async () => {
+    setIsLoading(true);
     try {
       // Validate the publishingYear
       if (!isValidYear(publishingYear)) {
@@ -59,6 +66,7 @@ const EditMovieForm = () => {
           progress: undefined,
           theme: "colored",
         });
+        setIsLoading(false);
         return;
       }
       const response = await axios.put(`/api/movies/edit/${movieId}`, {
@@ -76,6 +84,7 @@ const EditMovieForm = () => {
           progress: undefined,
           theme: "colored",
         });
+        setIsLoading(false);
         router.push("/movielist", { scroll: false });
         // You can add additional logic, such as resetting form fields or updating state
       } else {
@@ -89,8 +98,10 @@ const EditMovieForm = () => {
           progress: undefined,
           theme: "colored",
         });
+        setIsLoading(false);
       }
       console.log("Movie added successfully:", response.data);
+      setIsLoading(false);
       // You can add additional logic, such as resetting form fields or updating state
     } catch (error) {
       console.error("Error updating movie:", error.response?.data?.message);
@@ -104,6 +115,7 @@ const EditMovieForm = () => {
         progress: undefined,
         theme: "colored",
       });
+      setIsLoading(false);
     }
   };
 
@@ -168,7 +180,19 @@ const EditMovieForm = () => {
                     className="btn btnPrimary w-100"
                     onClick={handleEditMovie}
                   >
-                    Update
+                    {isLoading ? (
+                        <ColorRing
+                          visible={true}
+                          height="20"
+                          width="20"
+                          ariaLabel="color-ring-loading"
+                          wrapperStyle={{}}
+                          wrapperClass="color-ring-wrapper"
+                          colors={["#fff", "#fff", "#fff", "#fff", "#fff"]}
+                        />
+                      ) : (
+                        "Update"
+                      )}
                   </button>
                 </div>
               </div>
