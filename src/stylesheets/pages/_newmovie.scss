@@ -107,6 +107,13 @@
     width: auto;
     height: auto;
     background: transparent;
+    &.disabled {
+      opacity: .5;
+      cursor: not-allowed;
+      a {
+        cursor: not-allowed;
+      }
+    }
   }
   li {
     a {
