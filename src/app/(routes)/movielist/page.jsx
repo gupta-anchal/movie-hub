@@ -68,7 +68,7 @@ const Movielist = () => {
               <div className="logoutBtn">
                 <a className="text-white text-dec-none" href="">
                   <div>
-                    <span>Logout</span>
+                    <span className="d-none-sm">Logout</span>
                     <img className="ml-10 " src="/logout-white.svg" alt="" />
                   </div>
                 </a>
@@ -79,7 +79,7 @@ const Movielist = () => {
           <div className="row">
             {currentItems &&
               currentItems.map((movie) => (
-                <div className="col-md-3" key={movie._id}>
+                <div className="col-xl-3 col-sm-6 col-6" key={movie._id}>
                   <div className="cards">
                     <Image
                       src="/movie-poster.png"

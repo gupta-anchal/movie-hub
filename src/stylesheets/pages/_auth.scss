@@ -5,6 +5,9 @@
     h1{
         font-size: 64px;
         font-weight: 600;
+        @media screen and (max-width: $sm){
+            font-size: 48px;
+        }
     }
     input[type="checkbox"]{
         font-size: 14px;

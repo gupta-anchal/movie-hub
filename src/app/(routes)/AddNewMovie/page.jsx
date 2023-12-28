@@ -26,17 +26,47 @@ const AddMovieForm = () => {
         publishingYear,
       });
       if (response.status === 200) {
-        toast.success("Movie added successfully");
+        toast.success('Movie added successfully', {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
         router.push("/movielist", { scroll: false });
         // You can add additional logic, such as resetting form fields or updating state
       } else {
-        toast.error("Failed to add movie");
+        toast.error('Failed to add movie', {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
       }
       console.log("Movie added successfully:", response.data);
       // You can add additional logic, such as resetting form fields or updating state
     } catch (error) {
-      console.error("Error adding movie:", error.response?.data?.message);
-      toast.error(error.response?.data?.message);
+      console.error(
+        "Error adding movie:",
+        error.response?.data || error.message
+      );
+      toast.error('Error adding movie', {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
     }
   };
 
