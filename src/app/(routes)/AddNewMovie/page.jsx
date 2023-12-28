@@ -102,7 +102,7 @@ const AddMovieForm = () => {
                   </div>
                 </div>
               </div>
-              <div className="input-area-btns d-none-desk">
+              <div className="input-area-btns d-none-desk mb-5">
                   <div className="row">
                     <div className="col-6">
                       <button
