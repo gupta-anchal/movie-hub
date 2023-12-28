@@ -2,10 +2,13 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
-
+import Link from "next/link";
+import { ColorRing } from "react-loader-spinner";
+import { FaEdit } from "react-icons/fa";
 
 const Movielist = () => {
   const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -13,7 +16,7 @@ const Movielist = () => {
         const response = await fetch("/api/movies/list");
         const data = await response.json();
         setMovies(data?.movies);
-        
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching movies:", error);
       }
@@ -40,14 +43,26 @@ const Movielist = () => {
 
   return (
     <>
-      {movies?.length > 0 ? (
+      {isLoading ? (
+        <div className="loader-box">
+          <ColorRing
+            visible={true}
+            height="200"
+            width="200"
+            ariaLabel="color-ring-loading"
+            wrapperStyle={{}}
+            wrapperClass="color-ring-wrapper"
+            colors={["#2BD17E", "#2BD17E", "#2BD17E", "#2BD17E", "#2BD17E"]}
+          />
+        </div>
+      ) : movies?.length > 0 ? (
         <div className="container">
           <div className="page-heading">
             <h1>
               My movies
-              <a href="">
+              <Link href="/AddNewMovie">
                 <img src="/add-white.svg" alt="" />
-              </a>
+              </Link>
             </h1>
             <div>
               <div className="logoutBtn">
@@ -60,9 +75,7 @@ const Movielist = () => {
               </div>
             </div>
           </div>
-
           {/* movies card Loop should start from columns */}
-
           <div className="row">
             {currentItems &&
               currentItems.map((movie) => (
@@ -74,17 +87,23 @@ const Movielist = () => {
                       width={100}
                       height={100}
                     />
-                    <div className="cards_titles">
-                      <div className="cards_titles_heading">{movie?.title}</div>
-                      <div className="cards_titles_subheading">
-                        {movie?.publishingYear}
+                    <div className="cards_titles-box">
+                      <div className="cards_titles">
+                        <div className="cards_titles_heading">
+                          {movie?.title}
+                        </div>
+                        <div className="cards_titles_subheading">
+                          {movie?.publishingYear}
+                        </div>
+                      </div>
+                      <div className="editIcon">
+                        <FaEdit />
                       </div>
                     </div>
                   </div>
                 </div>
               ))}
           </div>
-
           <ReactPaginate
             breakLabel="..."
             nextLabel="Next"

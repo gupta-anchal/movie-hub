@@ -24,3 +24,19 @@
         }
     }
 }
+
+.cards_titles-box {
+    display: flex;
+    justify-content: space-between;
+    .editIcon {
+        align-self: flex-end;
+        margin-bottom: 5px;
+        opacity: 0;
+    }
+    &:hover{
+        .editIcon {
+            opacity: 1;
+            cursor: pointer;
+        }
+    }
+}

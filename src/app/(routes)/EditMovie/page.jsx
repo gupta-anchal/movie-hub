@@ -6,12 +6,15 @@ import "react-toastify/dist/ReactToastify.css";
 import { FileUploader } from "react-drag-drop-files";
 import downloadBtn from "../../../assets/images/dowload.svg";
 import Image from "next/image";
+import { useRouter } from 'next/navigation'
+
 
 const EditMovieForm = () => {
   const [title, setTitle] = useState("");
   const [publishingYear, setPublishingYear] = useState("");
   const fileTypes = ["JPEG", "PNG", "GIF"];
   const [file, setFile] = useState(null);
+  const router = useRouter()
 
   const handleChange = (file) => {
     setFile(file);
@@ -39,6 +42,10 @@ const EditMovieForm = () => {
       toast.error("Error adding movie");
     }
   };
+
+  const handleCancel = () =>{
+    router.push('/movielist', { scroll: false })
+  }
 
   return (
     <div className="new-movie-page">
@@ -85,7 +92,7 @@ const EditMovieForm = () => {
                 <div className="input-area-btns">
                   <button
                     className="btn btnSecondary w-100"
-                    onClick={handleAddMovie}
+                    onClick={handleCancel}
                   >
                     Cancel
                   </button>

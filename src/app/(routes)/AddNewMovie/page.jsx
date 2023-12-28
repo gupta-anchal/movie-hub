@@ -6,12 +6,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { FileUploader } from "react-drag-drop-files";
 import downloadBtn from "../../../assets/images/dowload.svg";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const AddMovieForm = () => {
   const [title, setTitle] = useState("");
   const [publishingYear, setPublishingYear] = useState("");
   const fileTypes = ["JPEG", "PNG", "GIF"];
   const [file, setFile] = useState(null);
+  const router = useRouter();
 
   const handleChange = (file) => {
     setFile(file);
@@ -25,6 +27,7 @@ const AddMovieForm = () => {
       });
       if (response.status === 200) {
         toast.success("Movie added successfully");
+        router.push("/movielist", { scroll: false });
         // You can add additional logic, such as resetting form fields or updating state
       } else {
         toast.error("Failed to add movie");
@@ -32,12 +35,13 @@ const AddMovieForm = () => {
       console.log("Movie added successfully:", response.data);
       // You can add additional logic, such as resetting form fields or updating state
     } catch (error) {
-      console.error(
-        "Error adding movie:",
-        error.response?.data || error.message
-      );
-      toast.error("Error adding movie");
+      console.error("Error adding movie:", error.response?.data?.message);
+      toast.error(error.response?.data?.message);
     }
+  };
+
+  const handleCancel = () => {
+    router.push("/movielist", { scroll: false });
   };
 
   return (
@@ -85,9 +89,9 @@ const AddMovieForm = () => {
                 <div className="input-area-btns">
                   <button
                     className="btn btnSecondary w-100"
-                    onClick={handleAddMovie}
+                    onClick={handleCancel}
                   >
-                    Add
+                    Cancel
                   </button>
                   <button
                     className="btn btnPrimary w-100"
