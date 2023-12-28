@@ -19,8 +19,23 @@ const AddMovieForm = () => {
     setFile(file);
   };
 
+  const isValidYear = (year) => /^\d{4}$/.test(year);
+
   const handleAddMovie = async () => {
     try {
+      if (!isValidYear(publishingYear)) {
+        toast.error("Invalid year format. Please enter a 4-digit year.", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        return;
+      }
       const response = await axios.post("/api/movies/add", {
         title,
         publishingYear,

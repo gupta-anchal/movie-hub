@@ -11,6 +11,11 @@ export default async function handler(req, res) {
   const { id } = req.query;
   const { title, publishingYear } = req.body;
 
+  // Check if title and publishingYear are present and not empty
+  if (!title || !publishingYear) {
+    return res.status(400).json({ message: 'Title and publishingYear are required fields.' });
+  }
+
   try {
     // Connect to MongoDB using the correct function name
     const { db, client } = await connectDatabase();

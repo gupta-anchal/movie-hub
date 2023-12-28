@@ -43,8 +43,24 @@ const EditMovieForm = () => {
     setFile(file);
   };
 
+  const isValidYear = (year) => /^\d{4}$/.test(year);
+
   const handleEditMovie = async () => {
     try {
+      // Validate the publishingYear
+      if (!isValidYear(publishingYear)) {
+        toast.error("Invalid year format. Please enter a 4-digit year.", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        return;
+      }
       const response = await axios.put(`/api/movies/edit/${movieId}`, {
         title,
         publishingYear,
@@ -77,11 +93,8 @@ const EditMovieForm = () => {
       console.log("Movie added successfully:", response.data);
       // You can add additional logic, such as resetting form fields or updating state
     } catch (error) {
-      console.error(
-        "Error updating movie:",
-        error.response?.data || error.message
-      );
-      toast.error("Error updating movie", {
+      console.error("Error updating movie:", error.response?.data?.message);
+      toast.error(`Error updating movie: ${error.response?.data?.message}`, {
         position: "bottom-center",
         autoClose: 5000,
         hideProgressBar: true,
