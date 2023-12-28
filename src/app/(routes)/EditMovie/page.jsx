@@ -11,16 +11,14 @@ import { useRouter } from "next/navigation";
 const EditMovieForm = () => {
   const [title, setTitle] = useState("");
   const [publishingYear, setPublishingYear] = useState("");
-  const [movieId, setMovieId] = useState(null); 
+  const [movieId, setMovieId] = useState(null);
   const fileTypes = ["JPEG", "PNG", "GIF"];
   const [file, setFile] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
-    const movieUrl = new URLSearchParams(window.location.search).get(
-      'id'
-    );
-    setMovieId(movieUrl)
+    const movieUrl = new URLSearchParams(window.location.search).get("id");
+    setMovieId(movieUrl);
     if (movieUrl) {
       const fetchMovieDetails = async () => {
         try {
@@ -29,14 +27,17 @@ const EditMovieForm = () => {
           setTitle(title);
           setPublishingYear(publishingYear);
         } catch (error) {
-          console.error("Error fetching movie details:", error.response?.data || error.message);
+          console.error(
+            "Error fetching movie details:",
+            error.response?.data || error.message
+          );
           // Handle error, e.g., redirect to the movie listing page
         }
       };
-  
+
       fetchMovieDetails();
     }
-  }, [router]);  
+  }, [router]);
 
   const handleChange = (file) => {
     setFile(file);
@@ -59,6 +60,7 @@ const EditMovieForm = () => {
           progress: undefined,
           theme: "colored",
         });
+        router.push("/movielist", { scroll: false });
         // You can add additional logic, such as resetting form fields or updating state
       } else {
         toast.error("Failed to update  movie", {
@@ -99,7 +101,9 @@ const EditMovieForm = () => {
   return (
     <div className="new-movie-page">
       <div className="container">
-        <div className="heading-two">Edit</div>
+        <div className="page-heading">
+          <h1> Edit</h1>
+        </div>
         <div className="form-section">
           <div className="row">
             <div className="col-lg-6">
