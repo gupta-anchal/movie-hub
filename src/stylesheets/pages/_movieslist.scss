@@ -23,4 +23,14 @@
             font-weight: 400;
         }
     }
+    @media screen and (max-width: $sm){
+        padding: 0;
+        img{
+            height: 246px;
+            border-radius: 12px 12px 0 0;
+        }
+        &_titles{
+            padding-bottom: 10px;
+        }
+    }
 }

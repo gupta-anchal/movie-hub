@@ -22,7 +22,7 @@ const Login = () => {
       <div className='authorize'>
         <h1 className='text-center m-0'>Sign in</h1>
         <br />
-        <br />
+        <br className='d-none-sm' />
         <form action="">
           <input type="text" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
           <input type="password" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />

@@ -37,5 +37,15 @@
       width: 32px;
       margin-left: 10px;
     }
+    @media screen and (max-width: $sm){
+      font-size: 32px;
+    }
+  }
+}
+
+
+@media screen and (max-width: $sm){
+  .d-none-sm{
+    display: none;
   }
 }
