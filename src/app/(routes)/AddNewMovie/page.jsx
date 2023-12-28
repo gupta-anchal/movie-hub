@@ -57,7 +57,7 @@ const AddMovieForm = () => {
         });
         setIsLoading(false);
         setTitle("");
-        setPublishingYear(null);
+        setPublishingYear('');
         // You can add additional logic, such as resetting form fields or updating state
       } else {
         toast.error("Failed to add movie", {
@@ -176,12 +176,14 @@ const AddMovieForm = () => {
                   id=""
                   onChange={(e) => setTitle(e.target.value)}
                   className="title-input"
+                  value={title}
                 />
                 <input
                   className="year-input"
                   type="text"
                   placeholder="Publishing year"
                   onChange={(e) => setPublishingYear(e.target.value)}
+                  value={publishingYear}
                 />
                 <div className="input-area-btns d-none-md">
                   <button
