@@ -96,9 +96,14 @@ const Movielist = () => {
                           {movie?.publishingYear}
                         </div>
                       </div>
-                      <div className="editIcon">
-                        <FaEdit />
-                      </div>
+                        <Link
+                          href={`/EditMovie?id=${encodeURIComponent(movie._id)}`}
+                        >
+                          {" "}
+                          <div className="editIcon">
+                            <FaEdit />
+                          </div>
+                        </Link>
                     </div>
                   </div>
                 </div>
