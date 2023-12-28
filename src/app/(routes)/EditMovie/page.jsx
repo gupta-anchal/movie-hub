@@ -1,33 +1,55 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FileUploader } from "react-drag-drop-files";
 import downloadBtn from "../../../assets/images/dowload.svg";
 import Image from "next/image";
-import { useRouter } from 'next/navigation'
-
+import { useRouter } from "next/navigation";
 
 const EditMovieForm = () => {
   const [title, setTitle] = useState("");
   const [publishingYear, setPublishingYear] = useState("");
+  const [movieId, setMovieId] = useState(null); 
   const fileTypes = ["JPEG", "PNG", "GIF"];
   const [file, setFile] = useState(null);
-  const router = useRouter()
+  const router = useRouter();
+
+  useEffect(() => {
+    const movieUrl = new URLSearchParams(window.location.search).get(
+      'id'
+    );
+    setMovieId(movieUrl)
+    if (movieUrl) {
+      const fetchMovieDetails = async () => {
+        try {
+          const response = await axios.get(`/api/movies/${movieUrl}`);
+          const { title, publishingYear } = response.data.movie;
+          setTitle(title);
+          setPublishingYear(publishingYear);
+        } catch (error) {
+          console.error("Error fetching movie details:", error.response?.data || error.message);
+          // Handle error, e.g., redirect to the movie listing page
+        }
+      };
+  
+      fetchMovieDetails();
+    }
+  }, [router]);  
 
   const handleChange = (file) => {
     setFile(file);
   };
 
-  const handleAddMovie = async () => {
+  const handleEditMovie = async () => {
     try {
-      const response = await axios.post("/api/movies/add", {
+      const response = await axios.put(`/api/movies/edit/${movieId}`, {
         title,
         publishingYear,
       });
       if (response.status === 200) {
-        toast.success('Movie updated successfully', {
+        toast.success("Movie updated successfully", {
           position: "bottom-center",
           autoClose: 5000,
           hideProgressBar: true,
@@ -36,10 +58,10 @@ const EditMovieForm = () => {
           draggable: true,
           progress: undefined,
           theme: "colored",
-          });
+        });
         // You can add additional logic, such as resetting form fields or updating state
       } else {
-        toast.error('Failed to add movie', {
+        toast.error("Failed to update  movie", {
           position: "bottom-center",
           autoClose: 5000,
           hideProgressBar: true,
@@ -48,16 +70,16 @@ const EditMovieForm = () => {
           draggable: true,
           progress: undefined,
           theme: "colored",
-          });
+        });
       }
       console.log("Movie added successfully:", response.data);
       // You can add additional logic, such as resetting form fields or updating state
     } catch (error) {
       console.error(
-        "Error adding movie:",
+        "Error updating movie:",
         error.response?.data || error.message
       );
-      toast.error('Error adding movie', {
+      toast.error("Error updating movie", {
         position: "bottom-center",
         autoClose: 5000,
         hideProgressBar: true,
@@ -66,13 +88,13 @@ const EditMovieForm = () => {
         draggable: true,
         progress: undefined,
         theme: "colored",
-        });
+      });
     }
   };
 
-  const handleCancel = () =>{
-    router.push('/movielist', { scroll: false })
-  }
+  const handleCancel = () => {
+    router.push("/movielist", { scroll: false });
+  };
 
   return (
     <div className="new-movie-page">
@@ -109,12 +131,14 @@ const EditMovieForm = () => {
                   id=""
                   onChange={(e) => setTitle(e.target.value)}
                   className="title-input"
+                  value={title}
                 />
                 <input
                   className="year-input"
                   type="text"
                   placeholder="Publishing year"
                   onChange={(e) => setPublishingYear(e.target.value)}
+                  value={publishingYear}
                 />
                 <div className="input-area-btns">
                   <button
@@ -125,7 +149,7 @@ const EditMovieForm = () => {
                   </button>
                   <button
                     className="btn btnPrimary w-100"
-                    onClick={handleAddMovie}
+                    onClick={handleEditMovie}
                   >
                     Update
                   </button>
