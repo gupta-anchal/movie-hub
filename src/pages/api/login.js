@@ -1,49 +1,21 @@
-import NextAuth from 'next-auth';
-import { Providers } from 'next-auth';
-import bcrypt from 'bcrypt';
+// pages/api/login.js
+import jwt from 'jsonwebtoken';
 
-export default NextAuth({
-  providers: [
-    Providers.Credentials({
-      async authorize(credentials) {
-        // Your custom logic to validate the user
-        const { email, password } = credentials;
+export default async function handler(req, res) {
+  try {
+    const { email, password } = req.body;
 
-        // Replace with your actual user validation logic (e.g., connecting to a database)
-        const validUser = {
-          email: 'admin@example.com', // Static/manual user email
-          hashedPassword: '$2b$10$2R/LaLvqdFXgGOCU4.nng.LDjTLMiBz.QqF5C0chVt5VVzq6Q1N5G', // Example hashed password for 'admin'
-        };
-
-        // Check if the provided email matches the valid user
-        if (email !== validUser.email) {
-          return Promise.resolve(null);
-        }
-
-        // Verify the password using bcrypt
-        const isPasswordValid = await bcrypt.compare(password, validUser.hashedPassword);
-
-        if (!isPasswordValid) {
-          return Promise.resolve(null);
-        }
-
-        // The user object you return here will be added to the session
-        return Promise.resolve({ email: validUser.email });
-      },
-    }),
-  ],
-  callbacks: {
-    async jwt(token, user) {
-      // If a user is found, add it to the token
-      if (user) {
-        token.id = user.email; // You can customize the token payload
-      }
-      return token;
-    },
-    async session(session, token) {
-      // Add user data to the session
-      session.user = token;
-      return session;
-    },
-  },
-});
+    if (email === 'admin@example.com' && password === 'password') {
+      const token = jwt.sign({ user: email }, '74fa1d434e50c294bb483379a88d4d38d341fff906036910f8e7aa274d3f967d');
+      res.status(200).json({
+        data: { tokenKey: token, userMail: email },
+        message: 'You have been logged in successfully',
+      });
+    } else {
+      return res.status(400).json({ message: 'Invalid user or password' });
+    }
+  } catch (error) {
+    console.log('Error in login API: ', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+}
