@@ -6,7 +6,7 @@ import downloadBtn from "../../../assets/images/dowload.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ColorRing } from "react-loader-spinner";
-import { showSuccessToast, showErrorToast } from 'path/to/toastUtils';
+import { showSuccessToast, showErrorToast } from '../../../../toastConfig';
 
 const EditMovieForm = () => {
   const [title, setTitle] = useState("");
