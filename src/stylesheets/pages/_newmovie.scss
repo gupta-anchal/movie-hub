@@ -64,3 +64,48 @@
     }
   }
 }
+
+.movie-paginate {
+  padding-top: 120px;
+  list-style-type: none;
+  padding-left: 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  color: #fff;
+  text-align: center;
+
+  /* Body/Regular */
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px; /* 150% */
+  .previous {
+    margin-right: 8px;
+  }
+  .next {
+    margin-left: 8px;
+  }
+  .next,
+  .previous {
+    width: auto;
+    height: auto;
+    background: transparent;
+  }
+  li {
+    a {
+      text-decoration: none;
+      color: #fff;
+    }
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    background: $bgColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &.selected {
+      background: $primaryColor;
+    }
+  }
+}
