@@ -66,7 +66,7 @@ const Movielist = () => {
             </h1>
             <div>
               <div className="logoutBtn">
-                <a className="text-white text-dec-none" href="">
+                <a className="text-white text-dec-none" href="/login">
                   <div>
                     <span className="d-none-sm">Logout</span>
                     <img className="ml-10 " src="/logout-white.svg" alt="" />

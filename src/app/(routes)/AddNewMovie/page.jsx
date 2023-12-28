@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 
 const AddMovieForm = () => {
   const [title, setTitle] = useState("");
-  const [publishingYear, setPublishingYear] = useState("");
+  const [publishingYear, setPublishingYear] = useState(null);
   const fileTypes = ["JPEG", "PNG", "GIF"];
   const [file, setFile] = useState(null);
   const router = useRouter();
@@ -51,7 +51,8 @@ const AddMovieForm = () => {
           progress: undefined,
           theme: "colored",
         });
-        router.push("/movielist", { scroll: false });
+        setTitle('');
+        setPublishingYear(null);
         // You can add additional logic, such as resetting form fields or updating state
       } else {
         toast.error('Failed to add movie', {
